@@ -187,21 +187,15 @@ Because JavaScript is **single-threaded**, means it can run only **one task at a
 
 However, in the real life applications, developers need to perform multiple operations such as:
 * Fetching API data
-* Login & authentication
-* Add to cart / Checkout process
-* Sending emails
-
+* Fetch UI
 These tasks must run smoothly **without blocking the main thread or freezing the user interface** — To solve this problem,  **Event Loop** was introduced.
-
-
-Even though JavaScript executes in a single thread, and in modern applications require running multiple tasks **concurrently**.
 
 
 ## ⚙️ How the Event Loop Works
 
 ### **1️⃣ JavaScript runs line by line (synchronous) code in the Call Stack**
 
-### **2️⃣ Asynchronous operations are handled by Web APIs / Node APIs**
+### **2️⃣ Asynchronous operations are handled by the Browser (Web APIs) or by Node.js (libuv).
 
 Examples:
 
@@ -214,16 +208,15 @@ Examples:
 
 There are two main queues:
 
-* **Callback Queue** → Timers, DOM events
+* **Macrotask Queue** → Timers, DOM events
 * **Microtask Queue** → Promises, async/await
 
-### Phases of the Event Loop in JavaScript
-JavaScript in the browser has 2 main phases:
 1️⃣ Macro-task Queue 
    Examples of Macro-tasks:setTimeout, setInterval, DOM events (Click), callback
 2️⃣ Micro-task Queue:
    High-priority queue — always executed before next macro-task
    Promise.then(), async/await 
+
 ### **4️⃣ Event Loop monitors the Call Stack**
 
 If the Call Stack is **empty**, the Event Loop push callback (Promis & setTimeout) into Call Stack for execution.
@@ -281,6 +274,19 @@ fetchData
   .catch(error => console.error(error));    // if rejected    
 
 ```
+
+### The Promise class offers static methods to facilitate async task
+1. Promise.resolve() : Returns a Promise object that is resolved with the given value
+
+2. Promise.reject() : Returns a new Promise object that is rejected with the given reason.
+
+3. Promise.all() : Fulfills when all of the promises fulfill; rejects when any of the promises rejects.
+
+4. Promise.allSettled() : Fulfills when all promises settle.
+
+5. Promise.any() : Fulfills when any of the promises fulfills; rejects when all of the promises reject.
+
+6. Promise.race() : Settles when any of the promises settles. In other words, fulfills when any of the promises fulfills;
 
 ---
 
@@ -611,7 +617,7 @@ non-primitive data types are used To store multiple and complex values.
 
 ## 📌 16. Explain the JavaScript Memory Leak.
 
-CA memory leak happens when your JavaScript program keeps using memory but never releases it, even though it is no longer needed.
+A memory leak happens when your JavaScript program keeps using memory but never releases it, even though it is no longer needed.
 Because of leaks, your app becomes:
 * Slower
 * Laggy
@@ -747,7 +753,7 @@ export function sum(a, b) {
 }
 
 // main.js
-import { PI, add } from './module.js';
+import { PI, sum } from './module.js';
 console.log(sum(10, 20)); // 30
 console.log(PI);          // 3.14
 
