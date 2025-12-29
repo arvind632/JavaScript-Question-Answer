@@ -20,16 +20,16 @@ technical interviews.
 You are **free to**:
 
 -   Read, learn, and use the concepts for personal and professional
-    growth.\
--   Share the repository link publicly.\
+    growth.
+-   Share the repository link publicly.
 -   Use the content for interview preparation, training, and personal
     study.
 
 You are **not allowed to**:
 
 -   Reproduce, distribute, or publish the book (in full or in part)
-    without written permission.\
--   Sell copies, modified versions, or derivative works of this book.\
+    without written permission.
+-   Sell copies, modified versions, or derivative works of this book.
 -   Use the author's name for promotional or commercial purposes without
     consent.
 
