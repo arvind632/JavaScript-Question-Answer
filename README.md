@@ -185,7 +185,7 @@ After memory allocation, JavaScript runs the code **line by line**.
 The **Event Loop** is a core part of the **JavaScript runtime environment**, responsible for managing **asynchronous operations** without blocking the main thread.
 Because JavaScript is **single-threaded**, means it can run only **one task at a time** inside a single **call stack**.
 
-However, in the real life applications, developers need to perform multiple operations such as:
+However, in the real life applications, developers need to perform multiple operations simultaneously such as:
 * Fetching API data
 * Fetch UI
 These tasks must run smoothly **without blocking the main thread or freezing the user interface** — To solve this problem,  **Event Loop** was introduced.
