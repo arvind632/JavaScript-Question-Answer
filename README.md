@@ -188,6 +188,7 @@ Because JavaScript is **single-threaded**, means it can run only **one task at a
 However, in the real life applications, developers need to perform multiple operations simultaneously such as:
 * Fetching API data
 * Fetch UI
+
 These tasks must run smoothly **without blocking the main thread or freezing the user interface** — To solve this problem,  **Event Loop** was introduced.
 
 
