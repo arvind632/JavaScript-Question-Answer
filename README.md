@@ -281,15 +281,219 @@ fetchData
 
 2. Promise.reject() : Returns a new Promise object that is rejected with the given reason.
 
-3. Promise.all() : Fulfills when all of the promises fulfill; rejects when any of the promises rejects.
+3. Promise.all() : runs multiple promises in parallel and resolves only when all promises succeed.
+If any promise fails, it immediately rejects.
 
-4. Promise.allSettled() : Fulfills when all promises settle.
+### 🔥 Key Behavior
 
-5. Promise.any() : Fulfills when any of the promises fulfills; rejects when all of the promises reject.
+⚡ Parallel execution
 
-6. Promise.race() : Settles when any of the promises settles. In other words, fulfills when any of the promises fulfills;
+❌ Fails fast on first rejection
 
----
+✅ Best when all results are mandatory
+
+
+### 🧪 Real-World Use Cases
+
+✅ 1. Transaction-Like Operations
+```js
+
+Promise.all([
+  debitAccount(),
+  updateOrder(),
+  reduceInventory()
+]).then(() => {
+  console.log("Transaction completed");
+}).catch(() => {
+  rollback();
+});
+
+```
+✔ Prevents inconsistent state
+
+✅ 2. Multiple Independent DB Queries
+
+```js
+Promise.all([
+  getUsers(),
+  getOrders(),
+  getProducts()
+]).then(([users, orders, products]) => {
+  res.json({ users, orders, products });
+});
+
+```
+✅ 3. Parallel File Uploads (All Must Upload)
+
+```js
+Promise.all(files.map(uploadFile))
+  .then(() => console.log("All files uploaded"))
+  .catch(() => console.log("Upload failed"));
+
+```
+
+
+✅ 4. Build / Deployment Pipelines : ✔ CI/CD workflows
+
+
+
+
+4. Promise.allSettled() : It is used when required all promises result, whether they are succeess or fail, and handle each result individually.
+
+Promise.allSettled() waits until all promises are settled.
+
+### 🔥 Key Behavior
+
+✅ Waits for all promises.
+
+🧾 Gives full result report.
+
+
+### 🧪 Real-World Use Cases
+
+✅ 1. Batch Processing (Emails, Notifications, Jobs)
+
+```js
+
+const tasks = users.map(user => sendEmail(user));
+Promise.allSettled(tasks).then(results => {
+  const success = results.filter(r => r.status === "fulfilled").length;
+  const failed = results.filter(r => r.status === "rejected").length;
+
+  console.log({ success, failed });
+});
+
+```
+
+✔ Accurate success/failure report
+
+✔ Used in background workers
+
+✅ 2. File Uploads (Multiple Files)
+
+```js
+
+Promise.allSettled(files.map(uploadFile))
+  .then(results => {
+    results.forEach((r, i) => {
+      if (r.status === "rejected") {
+        console.log(`File ${i} failed`);
+      }
+    });
+  });
+
+
+```
+
+✅ 3. Microservices Health check
+
+
+
+✅ 4. Improve Application Scalibility Cleanup / Shutdown Tasks
+
+```js 
+Promise.allSettled([
+  closeDB(),
+  closeRedis(),
+  closeKafka()
+]).then(() => {
+  process.exit(0);
+});
+
+```
+
+
+
+
+5. Promise.any() : It is used when you want the first successful (fulfilled) promise and you want to ignore all failures unless everything fails.
+
+Promise.any() returns the result of the first fulfilled promise.
+
+### 🔥 Key Behavior
+First fulfilled → resolves immediately with success .
+Rejected promises → ignored
+All rejected → throws AggregateError
+
+### 🧪 Real-World Use Cases
+
+✅ 1. Fallback APIs (Primary → Secondary → Backup)
+
+```js
+
+const api1 = fetch("/primary");
+const api2 = fetch("/secondary");
+const api3 = fetch("/backup");
+
+Promise.any([api1, api2, api3])
+  .then(res => res.json())
+  .then(data => console.log("Data received"))
+  .catch(err => console.log("All APIs failed"));
+  
+```
+
+✔ Highly fault-tolerant
+✔ Used in production systems
+
+✅ 2. Multi-CDN / Multi-Server Read
+
+```js
+
+Promise.any([
+  fetch("cdn1/data"),
+  fetch("cdn2/data"),
+  fetch("cdn3/data")
+])
+.then(response => response.text());
+
+```
+
+
+
+6. Promise.race() : Returns the result of the first completed promise state, whether it succeeds or fails. fulfills;
+
+```js
+
+Promise.race([promise1, promise2, promise3])
+  .then(result => console.log(result))
+  .catch(error => console.error(error));
+
+```
+### 🔥 Key Behavior
+  First fulfilled → resolves immediately whether it is success or fails.
+  First rejected → rejects immediately.
+  Other promises are ignored (but still run in background)
+
+### 🧪 Real-World Use Cases
+
+✅ Handle Fastest Server / CDN Selection
+
+```js
+const server1 = fetch("https://server1/api");
+const server2 = fetch("https://server2/api");
+
+Promise.race([server1, server2])
+  .then(res => res.json())
+  .then(data => console.log("Fastest response used"));
+
+```
+
+✅ 3. User Interaction vs Timeout
+
+```js
+
+const userClick = new Promise(resolve =>
+  button.addEventListener("click", resolve)
+);
+
+const autoCancel = new Promise(resolve =>
+  setTimeout(() => resolve("Cancelled"), 5000)
+);
+
+const result = await Promise.race([userClick, autoCancel]);
+
+```
+
+--- 
 
 ## 📌 5. Difference Between Promise and Async/Await?
 
