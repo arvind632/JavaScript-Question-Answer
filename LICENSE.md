@@ -4,7 +4,7 @@
 
 ## **Author:** **Arvind Singh**
 
-## **Edition:** **First Edition (2025)**
+## **Edition:** **First Edition (16 Nov - 2025)**
 
 Copyright © **2025 Arvind Singh**\
 All Rights Reserved.
