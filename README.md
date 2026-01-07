@@ -624,9 +624,9 @@ function throttle(fn, limit){
 
 ## 📌 8. What is Closure?
 
+A closure is a JavaScript behavior where a function remembers and can access variables from its outer score.
+Closure is lexical variable. That means a inner function can access the parent variable.
 
-Function that remembers its outer scope even after execution.
-A function access to its outer (parent) scope that's is called closure. Closure is lexical variable. That means a inner function can access the parent variable.
 
 ```js
 
@@ -644,6 +644,14 @@ counter();  // count : 2
 
 ```
 
+### Most Common Real-World Use Cases
+1️⃣ Data Privacy / Encapsulation
+2️⃣ State Management
+
+
+### Cons (Disadvantages) of Closures
+
+Closures keep references to outer variables, so memory is not released until the closure is garbage-collected.
 ---
 
 ## 📌 9. What is Callback?
@@ -978,7 +986,11 @@ Prevents errors when accessing nested properties.
 
 ## 📌 24. What is the Purpose of `use strict`?
 
-use strict enables Strict Mode in JavaScript, which catches common coding errors, prevents unsafe actions (like using undeclared variables), avoids accidental globals, blocks deprecated features, and helps write cleaner and more secure code.
+use strict enables Strict Mode in JavaScript, which enforces safer coding rules, prevents common mistakes, and throws errors for bad practices that are otherwise silently ignored.
+
+It used only for development mode and debuging purpose.
+
+
 
 ---
 
@@ -1012,7 +1024,7 @@ It creates function execution contexts
     There are 2 types:
     Global Execution Context (GEC) : Created once when script starts.
     It has Memory space for all global variables
-    Function Execution Context (FEC): Wethr a function is called, JS creates a NEW execution context.
+    Function Execution Context (FEC): Where as function is called, JS creates a NEW execution context.
 
 ###  Call Stack (Execution Stack)
     All execution contexts are stored in a call stack and after finish remove the executation context.
@@ -1031,6 +1043,12 @@ It creates function execution contexts
 * shift/unshift()
 * splice()
 * Slice()
+
+---
+
+
+
+
 
 
 
